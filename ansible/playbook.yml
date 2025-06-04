@@ -1,0 +1,15 @@
+---
+-	name: 'Hello'
+	hosts: web
+	become: yes
+	steps:
+		-name: 'Copy WAR file to tomcat'
+		copy:
+			src: '/var/snap/jenkins/4870/workspace/ExtAN/target/ExtAN-CICD/MavenWebAppJenkinsIntegrationusingAnsible.war'
+			dest: '/opt/tomcat/webapps/MavenWebAppJenkinsIntegrationusingAnsible.war'
+			remote_src: no
+		
+		-name: 'Restart tomcat'
+		systemd:
+			name: 'tomcat'
+			state: restarted
